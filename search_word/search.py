@@ -2,7 +2,7 @@
 
 import re
 
-#opening the tab sepearted value file
+# Opening the tab sepearted value file
 def dataset(path='word_search.tsv',word_count={}):
 	with open(path) as datafile: 
 	    for row in datafile:
@@ -13,27 +13,27 @@ def dataset(path='word_search.tsv',word_count={}):
 	return word_count
 
 
-#to get the second item from the given tuple
+# To get the second item from the given tuple
 def takeSecond(elem):
 	return elem[1]
 
 
-#to get the third item from the given tuple	
+# To get the third item from the given tuple	
 def takeThird(elem):
 	return elem[2]
 
-#This part search and sorts the words based on a match with the search keyword using regex
+# This part search and sorts the words based on a match with the search keyword using regex
 def search_word(search_string):
 
-	#regex pattern  -> greedy regex -> Joins a.*?b.*?c
+	# Regex pattern  -> greedy regex -> Joins a.*?b.*?c
 	greedy_pattern = '.*?'.join(search_string.lower())
 	# Compile regex.
 	regex = re.compile(greedy_pattern)
-	#Checks if the current item matches the regex and creating a list of tuples
+	# Checks if the current item matches the regex and creating a list of tuples
 	random=[(k,int(v),len(k),) for k,v in dataset().items() if regex.search(k)]
-	#sorting with respect to frequency 
+	# Sorting with respect to frequency 
 	sortedList = sorted(random, key=takeSecond, reverse=True)
-	#sorting with respect to length of the  word 
+	# Sorting with respect to length of the  word 
 	sortedList = sorted(random, key=takeThird)
 
 	return([i[0] for i in sortedList[:25]])

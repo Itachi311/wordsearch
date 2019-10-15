@@ -3,11 +3,11 @@ from django.http import JsonResponse, HttpResponse
 from .search import search_word 
 import json
 
-#renders the search page.
+# Renders the search page.
 def search_view(request):
     return render(request, 'search.html', {})
 
-#Returns the autocomplete results while the user types in a letter.
+# Returns the autocomplete results while the user types in a letter.
 def search_autocomplete(request):
     if request.is_ajax() and request.method == 'GET':
         query = request.GET.get('word','')
@@ -24,7 +24,7 @@ def getSearchResults(request):
         query = request.GET.get('word') 
         if len(query)!=0:
             searchResult = results = search_word(query)
-            print(searchResult,"zero",query)
+            
             if len(searchResult) == 0:
                 return JsonResponse({'Search_Result': "Word you entered was not found.",'Success':False})
             else:
