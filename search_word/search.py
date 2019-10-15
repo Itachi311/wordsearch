@@ -1,5 +1,3 @@
-
-
 import re
 
 # Opening the tab sepearted value file
