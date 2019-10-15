@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Word Search</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#search" ).autocomplete({
+      source: function (request, response) {
+         // request.term is the term searched for.
+         // response is the callback function you must call to update the autocomplete's 
+         // suggestion list.
+         $.ajax({
+             url: "/search",
+             data: { word: request.term },
+             dataType: "json",
+             success: response,
+             error: function () {
+                 response([]);
+             }
+         });
+     },
+
+      minLength: 1,
+    });
+  });
+  </script>
+</head>
+<body>
+  <br>
+<div class="ui-widget">
+  <h2>Word Search</h2>
+  <form action= "/searchResults" method= "GET">
+      <input id="search" type="text" placeholder="Enter word" name="word" size="25">
+      <input type="submit" value="Search">
+  </form>
+</div>
+</body>
+</html>
